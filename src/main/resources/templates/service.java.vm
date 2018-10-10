@@ -1,0 +1,27 @@
+package ${package.Service};
+import java.util.List;
+import ${package.Entity}.${entity};
+##import ${superServiceClassPackage};
+
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+public interface ${table.serviceName}  {##extends ${superServiceClass}<${entity}>
+
+	List<${entity}> getAll();
+	
+	void add${entity}(${entity} ${table.entityPath});
+	
+	void add${entity}List(List<${entity}> list);
+	
+	void edit${entity}(${entity} ${table.entityPath});
+	
+	void del${entity}(${cfg.pk.propertyType} ${cfg.pk.propertyName});
+	
+	${entity} find$!{entity}ById(${cfg.pk.propertyType} ${cfg.pk.propertyName});
+}

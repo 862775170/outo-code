@@ -1,0 +1,34 @@
+package ${package.Mapper};
+
+import ${package.Entity}.${entity};
+##import ${superMapperClassPackage};
+import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
+
+/**
+ * <p>
+  * $!{table.comment} Mapper 接口
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Mapper
+public interface ${table.mapperName} {##extends ${superMapperClass}<${entity}> {
+	
+	
+	List<${entity}> selectAll();
+	
+	void insert(${entity} ${table.entityPath});
+	
+	void inserts(List<${entity}> list);
+	
+	void update(${entity} ${table.entityPath});
+#if( $cfg.pk)
+
+	void delete(${cfg.pk.propertyType} ${cfg.pk.propertyName});
+	
+	${entity} findByPrimaryKey(${cfg.pk.propertyType} ${cfg.pk.propertyName});
+	
+#end
+}

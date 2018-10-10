@@ -1,0 +1,56 @@
+package ${package.ServiceImpl};
+
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+##import ${superServiceImplClassPackage};
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${table.serviceImplName} implements ${table.serviceName} { ##extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} 
+	
+	@Resource
+	private ${table.mapperName} ${table.entityPath}Mapper;
+	
+	@Override
+	public List<${entity}> getAll(){
+        return ${table.entityPath}Mapper.selectAll();
+	}
+	
+	@Override
+	public void add${entity}(${entity} ${table.entityPath}){
+		${table.entityPath}Mapper.insert(${table.entityPath});
+	}
+	
+	@Override
+	public void add${entity}List(List<${entity}> list){
+		${table.entityPath}Mapper.inserts(list);
+	}
+	
+	@Override
+	public void edit${entity}(${entity} ${table.entityPath}){
+		${table.entityPath}Mapper.update(${table.entityPath});
+	}
+	
+	@Override
+	public void del${entity}(${cfg.pk.propertyType} ${cfg.pk.propertyName}){
+		${table.entityPath}Mapper.delete(${cfg.pk.propertyName});
+	}
+	
+	@Override
+	public ${entity} find$!{entity}ById(${cfg.pk.propertyType} ${cfg.pk.propertyName}){
+		return ${table.entityPath}Mapper.findByPrimaryKey(${cfg.pk.propertyName});
+	}
+}

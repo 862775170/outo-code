@@ -1,0 +1,46 @@
+#set($doller="$")
+<template>
+<div>
+  <el-form ref="form" :model="fromData" label-width="80px" size="mini">
+#foreach($field in ${table.fields})
+#if(${field.propertyType.equals("Date")})
+    <el-form-item label="#if("$!field.comment" != "")${field.comment}#else/${field.propertyName}#end">
+        <el-date-picker type="datetime" placeholder="选择日期" value-format="yyyy-MM-dd HH:mm:ss" v-model="fromData.${field.propertyName}" style="width: 100%;"></el-date-picker>
+    </el-form-item>
+#else
+    <el-form-item label="#if("$!field.comment" != "")${field.comment}#else/${field.propertyName}#end">
+      <el-input v-model="fromData.${field.propertyName}"></el-input>
+    </el-form-item>
+#end
+#end
+    <el-form-item size="large">
+      <el-button type="primary" @click="onSubmit">立即修改</el-button>
+      <el-button @click="dialogClose">取消</el-button>
+    </el-form-item>
+  </el-form>
+</div>
+</template>
+<script>
+export default {
+  data() {
+    return {};
+  },
+  props:["fromData"], // 回显数据
+  methods: {
+    onSubmit() {
+        // 提交表单
+      console.log('submit!');
+      // this.fromData == props:["fromData"]
+      this.${doller}http.put("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end",this.fromData).then(response => {
+        console.log(response);
+        this.dialogClose();
+      }).catch(error => {
+        console.log(error);
+      });
+    },
+    dialogClose(){
+      this.${doller}emit('refreshList');
+    }
+  }
+};
+</script>

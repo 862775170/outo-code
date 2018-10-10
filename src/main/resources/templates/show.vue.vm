@@ -1,0 +1,22 @@
+#set($doller="$")
+<template>
+<div>
+  <el-form :model="fromData"  label-width="120px" >
+#foreach($field in ${table.fields})
+    <el-form-item label="#if("$!field.comment" != "")${field.comment}#else/${field.propertyName}#end">
+            <span>{{ fromData.${field.propertyName} }}</span>
+    </el-form-item>
+#end
+  </el-form>
+</div>
+</template>
+<script>
+export default {
+  data() {
+    return {};
+  },
+  props:["fromData"], // 回显数据
+  methods: {
+  }
+};
+</script>
